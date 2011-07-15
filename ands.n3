@@ -269,52 +269,14 @@ ands:ands a owl:DatatypeProperty;
     rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:handle .
 
-ands:associatedPrincipleInvestigator a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "associated principal investigator"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range foaf:Person .
-
-ands:centralDigitalDataReference a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "central LTDS digital data reference"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range xsd:anyURI .
-
-ands:classifiesResearchData a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "classifes research data"@en;
-    rdfs:range ands:ResearchData .
-
 ands:dateOfPublication a rdf:Property,
         owl:DatatypeProperty;
     rdfs:label "date of publication (public release)"@en;
     rdfs:domain ands:ResearchData;
     rdfs:range xsd:dateTime .
 
-ands:dateResearchCommenced a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "date research commenced"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range xsd:dateTime .
-
-ands:dateResearchCompleted a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "date research completed"@en;
-    rdfs:domain ands:ResearchData .
-
-ands:digitalDataReference a owl:DatatypeProperty;
-    rdfs:label "digital data reference"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range xsd:string .
-
 ands:groupDescription a owl:DatatypeProperty;
     rdfs:domain ands:ResearchData;
-    rdfs:range xsd:string .
-
-ands:hasXSLTransform a owl:DatatypeProperty;
-    rdfs:label "XSL transform location"@en;
-    rdfs:domain ands:OAIVITROHarvest;
     rdfs:range xsd:string .
 
 ands:infouri a owl:DatatypeProperty;
@@ -329,22 +291,11 @@ ands:isil a owl:DatatypeProperty;
 	rdfs:domain ands:RifcsThing;
     rdfs:subPropertyOf bibo:identifier .
 
-ands:locationOfDataManagementPlan a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "location of DMP"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range xsd:anyURI .
-
 ands:nla a owl:DatatypeProperty;
     rdfs:label "National Library Australia identifier"@en;
     rdfs:comment "National Library Australia identifier"^^xsd:string;
 	rdfs:domain ands:RifcsThing;
     rdfs:subPropertyOf vivo:identifier .
-
-ands:nonDigitalDataLocation a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "location of non digital data"@en;
-    rdfs:domain ands:ResearchData .
 
 ands:originatingSource a owl:DatatypeProperty;
     rdfs:label "originating source"@en;
@@ -391,21 +342,10 @@ ands:ResearchRegistry a owl:Class;
     rdfs:subClassOf ands:ResearchData;
     rdfs:subClassOf ands:RifcsThing .
 
-ands:retentionPeriod a rdf:Property,
-        owl:DatatypeProperty;
-    rdfs:label "retention period"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range xsd:string .
-
 ands:rights a rdf:Property,
         owl:DatatypeProperty;
     rdfs:label "rights and restrictions"@en;
     rdfs:domain ands:ResearchData;
-    rdfs:range xsd:string .
-
-ands:selectionSPARQLLocation a owl:DatatypeProperty;
-    rdfs:label "selection SPARQL location"@en;
-    rdfs:domain ands:OAIVITROHarvest;
     rdfs:range xsd:string .
 
 ands:associatedSupervisor a rdf:Property,
@@ -414,19 +354,6 @@ ands:associatedSupervisor a rdf:Property,
     rdfs:domain ands:ResearchData;
     rdfs:range foaf:Person;
     owl:inverseOf ands:researchDataFromSupervisions .
-
-ands:custodianDepartment a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "custodian department"@en;
-    rdfs:domain ands:ResearchData;
-    rdfs:range foaf:Organization;
-    owl:inverseOf ands:custodianOfResearchData .
-
-ands:custodianOfResearchData a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "research data custodian"@en;
-    rdfs:range ands:ResearchData;
-    owl:inverseOf ands:custodianDepartment .
 
 ands:describes a owl:ObjectProperty;
     rdfs:label "describes"@en;
@@ -477,13 +404,6 @@ ands:hasPointOfContact a rdf:Property,
     rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isPointOfContactFor .
-
-ands:hasResearchData a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "has research data"@en;
-    rdfs:domain foaf:Person;
-    rdfs:range ands:ResearchData;
-    owl:inverseOf ands:publishedIn .
 
 ands:isCollectorOf a owl:ObjectProperty;
     rdfs:label "is collector of"@en;
@@ -594,12 +514,6 @@ ands:publishedIn a rdf:Property,
     rdfs:label "published in"@en;
     rdfs:domain ands:ResearchData;
     owl:inverseOf ands:hasResearchData .
-
-ands:researchDataFromSupervisions a rdf:Property,
-        owl:ObjectProperty;
-    rdfs:label "research data from supervisions"@en;
-    rdfs:range ands:ResearchData;
-    owl:inverseOf ands:associatedSupervisor .
 
 ands:streetAddress a owl:ObjectProperty;
     rdfs:label "street address"@en;
