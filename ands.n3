@@ -1,5 +1,5 @@
 @prefix cc: <http://creativecommons.org/ns#> .
-@prefix ands: <http://www.ands.org.au/ontologies/ns/0.1/VITRO-ANDS.owl#> .
+@prefix ands: <http://purl.org/ands/ontologies/vivo/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
@@ -13,7 +13,7 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
 
-<http://www.ands.org.au/ontologies/ns/0.1/VITRO-ANDS.owl> a owl:Ontology;
+<http://purl.org/ands/ontologies/vivo/> a owl:Ontology;
     rdfs:label "ANDSHarvest"@en;
     cc:license <http://creativecommons.org/licenses/by-nc/3.0/au/>;
     dc:contributor "Griffith University",
@@ -81,27 +81,25 @@ ands:text a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain ands:RifcsThing .
 
-dcterms:rights rdfs:domain ands:RifcsThing .
+#dcterms:rights rdfs:domain ands:RifcsThing .
 
-skos:Note rdfs:domain ands:RifcsThing .
+#skos:Note rdfs:domain ands:RifcsThing .
 
-dcterms:description rdfs:domain ands:RifcsThing .
+#dcterms:description rdfs:domain ands:RifcsThing .
 
-vivo:description rdfs:domain ands:RifcsThing .
+#vivo:description rdfs:domain ands:RifcsThing .
 
-dcterms:accessRights rdfs:domain ands:RifcsThing .
+#dcterms:accessRights rdfs:domain ands:RifcsThing .
 
-vivo:addressStreet rdfs:domain vivo:Address .
+#vivo:addressStreet rdfs:domain vivo:Address .
 
-vivo:addressCity rdfs:domain vivo:Address .
+#vivo:addressCity rdfs:domain vivo:Address .
 
-vivo:addressDepartment rdfs:domain vivo:Address .
+#vivo:addressDepartment rdfs:domain vivo:Address .
 
-vivo:addressPostalCode rdfs:domain vivo:Address .
+#vivo:addressPostalCode rdfs:domain vivo:Address .
 
-vivo:addressState rdfs:domain vivo:Address .
-
-foaf:Agent rdfs:subClassOf ands:RifcsThing .
+#vivo:addressState rdfs:domain vivo:Address .
 
 ands:hasMember a owl:ObjectProperty;
 	rdfs:comment "(group only) has enrolled the related party in the group"^^xsd:string;
@@ -144,71 +142,71 @@ ands:Service a owl:Class;
 ands:ServiceCreate a owl:Class;
 	rdfs:comment "instrument"^^xsd:string;
     rdfs:label "create"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceGenerate a owl:Class;
 	rdfs:comment "simulator"^^xsd:string;
     rdfs:label "generate"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceReport a owl:Class;
 	rdfs:comment "visualization, summary"^^xsd:string;
     rdfs:label "report"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceAnnotate a owl:Class;
 	rdfs:label "annotate"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceTransform a owl:Class;
 	rdfs:comment "analysis, conversion"^^xsd:string;
     rdfs:label "transform"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceAssemble a owl:Class;
 	rdfs:comment "aggregation"^^xsd:string;
     rdfs:label "assemble"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceHarvest-oaipmh a owl:Class;
 	rdfs:comment "OAI-PMH Harvest"^^xsd:string;
     rdfs:label "harvest-oaipmh"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSearch-http a owl:Class;
 	rdfs:comment "Search service over HTTP"^^xsd:string;
     rdfs:label "search-http"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSearch-Opensearch a owl:Class;
 	rdfs:comment "OpenSearch search"^^xsd:string;
     rdfs:label "search-opensearch"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSearch-sru a owl:Class;
 	rdfs:comment "search-sru"^^xsd:string;
     rdfs:label "SRU search"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSearch-srw a owl:Class;
 	rdfs:comment "SRW search"^^xsd:string;
     rdfs:label "search-srw"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSearch-z3950 a owl:Class;
 	rdfs:comment "z39.50 search"^^xsd:string;
     rdfs:label "search-z3950"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSyndicate-atom a owl:Class;
 	rdfs:comment "ATOM syndication"^^xsd:string;
     rdfs:label "syndicate-atom"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:ServiceSyndicate-rss a owl:Class;
 	rdfs:comment "RSS feed"^^xsd:string;
     rdfs:label "syndicate-rss"@en;
-    rdfs:subClassOf ands:RifcsThing .
+    rdfs:subClassOf ands:Service .
 
 ands:authoritative a owl:DatatypeProperty;
 	rdfs:comment "The source holds the authoritative version of the metadata about the registry object."^^xsd:string;
@@ -224,9 +222,11 @@ vivo:Program rdfs:subClassOf ands:RifcsThing .
 
 vivo:Project rdfs:subClassOf ands:RifcsThing .
 
-foaf:Organization rdfs:subClassOf ands:RifcsThing .
+#foaf:Organization rdfs:subClassOf ands:RifcsThing .
 
-foaf:Person rdfs:subClassOf ands:RifcsThing .
+#foaf:Person rdfs:subClassOf ands:RifcsThing .
+
+foaf:Agent rdfs:subClassOf ands:RifcsThing .
 
 ands:enriches a owl:ObjectProperty;
 	rdfs:label "enriches"@en;
@@ -326,13 +326,13 @@ ands:researchDataDescription a owl:DatatypeProperty;
     rdfs:domain ands:ResearchData;
     rdfs:range rdf:XMLLiteral .
 
-ands:researchDataSet a owl:Class;
+ands:ResearchDataSet a owl:Class;
     rdfs:label "Reserach Dataset"@en;
     rdfs:comment "collection of physical or digital objects generated by research activities"^^xsd:string;
     rdfs:subClassOf ands:ResearchData;
     rdfs:subClassOf ands:RifcsThing .
 
-ands:researchRecordsCollection a owl:Class;
+ands:ResearchRecordsCollection a owl:Class;
     rdfs:label "Research Records Collection"@en;
     rdfs:subClassOf ands:ResearchData .
 
@@ -761,11 +761,11 @@ ands:urn a owl:DatatypeProperty;
 	rdfs:comment "Uniform Resource Name"^^xsd:string;
 	rdfs:domain ands:RifcsThing .
 
-bibo:eissn rdfs:domain ands:RifcsThing .
+#bibo:eissn rdfs:domain ands:RifcsThing .
 
-bibo:issn rdfs:domain ands:RifcsThing .
+#bibo:issn rdfs:domain ands:RifcsThing .
 
-bibo:isbn rdfs:domain ands:RifcsThing .
+#bibo:isbn rdfs:domain ands:RifcsThing .
 
 ands:dateAvailable a owl:ObjectProperty;
 	rdfs:label "available"@en;
@@ -820,5 +820,13 @@ ands:dateValid a owl:ObjectProperty;
 ands:relatedInformationResource a owl:ObjectProperty;
 	rdfs:label "publication"@en;
 	rdfs:comment "any formally published document, whether available in digital or online form or not."^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData;
+	owl:inverseOf ands:relatedResearchData;
+    rdfs:range vivo:InformationResource .
+
+ands:relatedResearchData a owl:ObjectProperty;
+	rdfs:label "related research data"@en;
+	rdfs:domain vivo:InformationResource;
+	owl:inverseOf ands:relatedInformationResource;
+    rdfs:range ands:ResearchData .
 
