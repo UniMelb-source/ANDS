@@ -168,42 +168,42 @@ ands:ServiceAssemble a owl:Class;
     rdfs:label "assemble"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceHarvest-oaipmh a owl:Class;
+ands:ServiceHarvestOaipmh a owl:Class;
 	rdfs:comment "OAI-PMH Harvest"^^xsd:string;
     rdfs:label "harvest-oaipmh"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSearch-http a owl:Class;
+ands:ServiceSearchHttp a owl:Class;
 	rdfs:comment "Search service over HTTP"^^xsd:string;
     rdfs:label "search-http"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSearch-Opensearch a owl:Class;
+ands:ServiceSearchOpensearch a owl:Class;
 	rdfs:comment "OpenSearch search"^^xsd:string;
     rdfs:label "search-opensearch"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSearch-sru a owl:Class;
+ands:ServiceSearchSru a owl:Class;
 	rdfs:comment "search-sru"^^xsd:string;
     rdfs:label "SRU search"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSearch-srw a owl:Class;
+ands:ServiceSearchSrw a owl:Class;
 	rdfs:comment "SRW search"^^xsd:string;
     rdfs:label "search-srw"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSearch-z3950 a owl:Class;
+ands:ServiceSearchZ3950 a owl:Class;
 	rdfs:comment "z39.50 search"^^xsd:string;
     rdfs:label "search-z3950"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSyndicate-atom a owl:Class;
+ands:ServiceSyndicateAtom a owl:Class;
 	rdfs:comment "ATOM syndication"^^xsd:string;
     rdfs:label "syndicate-atom"@en;
     rdfs:subClassOf ands:Service .
 
-ands:ServiceSyndicate-rss a owl:Class;
+ands:ServiceSyndicateRss a owl:Class;
 	rdfs:comment "RSS feed"^^xsd:string;
     rdfs:label "syndicate-rss"@en;
     rdfs:subClassOf ands:Service .
@@ -394,7 +394,7 @@ ands:hasParticipant a rdf:Property,
     rdfs:label "has participant"@en;
     rdfs:subPropertyOf dcterms:relation;
 	rdfs:domain ands:Activity;
-	rdfs:range ands:Activity;
+	rdfs:range foaf:Person;
     owl:inverseOf ands:isParticipantIn .
 
 ands:hasPointOfContact a rdf:Property,
@@ -489,7 +489,7 @@ ands:isParticipantIn a rdf:Property,
         owl:ObjectProperty;
     rdfs:label "is participant in"@en;
 	rdfs:domain foaf:Person;
-	rdfs:range foaf:Organization;
+	rdfs:range ands:Activity;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:hasParticipant .
 
@@ -505,15 +505,26 @@ ands:isSupportedBy a owl:ObjectProperty;
     rdfs:label "is supported by"@en;
     rdfs:comment "enables contribution and access to and use of the related collection"^^xsd:string;
     rdfs:domain ands:Service;
-    rdfs:range foaf:ResearchData;
+    rdfs:range ands:ResearchData;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:supports .
 
-ands:publishedIn a rdf:Property,
-        owl:ObjectProperty;
+ands:publishedIn a owl:ObjectProperty;
     rdfs:label "published in"@en;
     rdfs:domain ands:ResearchData;
+    rdfs:range bibo:AcademicArticle;
     owl:inverseOf ands:hasResearchData .
+    
+ands:hasResearchData a owl:ObjectProperty;
+    rdfs:label "has research data"@en;
+    rdfs:domain bibo:AcademicArticle;
+    rdfs:range ands:ResearchData;
+    owl:inverseOf ands:publishedIn .
+    
+ands:associatedPrincipleInvestigator a owl:ObjectProperty;
+    rdfs:label "associated principal investigator"@en;
+    rdfs:domain ands:ResearchData;
+    rdfs:range foaf:Person .    
 
 ands:streetAddress a owl:ObjectProperty;
     rdfs:label "street address"@en;
@@ -565,8 +576,8 @@ ands:OAIVITROHarvest a owl:Class;
     rdfs:label "OAIHarvest"@en .
 
 ands:ResearchData a owl:Class;
-    rdfs:label "Research Data"@en;
-    rdfs:subClassOf bibo:Collection .
+    rdfs:label "Research Data"@en .
+    #rdfs:subClassOf bibo:Collection .
 
 dcterms:hasPart owl:inverseOf dcterms:isPartOf .
 
@@ -611,12 +622,14 @@ ands:isAvailableThrough a owl:ObjectProperty;
 	rdfs:label "is available through"@en;
 	rdfs:comment "specialisation of isSupportBy type - for Harvest, Search and Syndicate"^^xsd:string;
 	rdfs:range ands:Service;
-	rdfs:domain ands:Service .
+    owl:inverseOf ands:makesAvailable;
+	rdfs:domain ands:ResearchData .
 
 ands:makesAvailable a owl:ObjectProperty;
 	rdfs:label "makes available"@en;
 	rdfs:comment " specialisation of supports type - for Harvest, Search and Syndicate"^^xsd:string;
-	rdfs:range ands:Service;
+	rdfs:range ands:ResearchData;
+    owl:inverseOf ands:isAvailableThrough;
 	rdfs:domain ands:Service .
 
 ands:isProducedBy a owl:ObjectProperty;
@@ -683,7 +696,7 @@ ands:citMLA a owl:DatatypeProperty;
 	rdfs:comment "Modern Language Association of America"^^xsd:string;
 	rdfs:domain ands:RifcsThing .
 
-ands:vitVancouver a owl:DatatypeProperty;
+ands:citVancouver a owl:DatatypeProperty;
 	rdfs:label "Vancouver"@en;
 	rdfs:domain ands:RifcsThing .
 
@@ -707,7 +720,7 @@ ands:citAMA a owl:DatatypeProperty;
 	rdfs:comment "American Medical Association"^^xsd:string;
 	rdfs:domain ands:RifcsThing .
 
-ands:citAGPS-AGIMO a owl:DatatypeProperty;
+ands:citAgpsAGIMO a owl:DatatypeProperty;
 	rdfs:label "AGPS-AGIMO"@en;
 	rdfs:comment "Australian Style Manual"^^xsd:string;
 	rdfs:domain ands:RifcsThing .
