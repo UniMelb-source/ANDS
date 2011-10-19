@@ -12,6 +12,15 @@
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix event: <http://purl.org/NET/c4dm/event.owl#> .
+@prefix for:   <http://purl.org/asc/1297.0/2008/for/> .
+@prefix rfcd:  <http://purl.org/asc/1297.0/1998/rfcd/> .
+@prefix seo08: <http://purl.org/asc/1297.0/2008/seo/> .
+@prefix seo98: <http://purl.org/asc/1297.0/1998/seo/> .
+
+ands:RifcsThing a owl:Class;
+    rdfs:label "RIF-CS super class"@en;
+    rdfs:comment "RIF-CS super class"^^xsd:string;
+    rdfs:subClassOf owl:Thing .
 
 <http://purl.org/ands/ontologies/vivo/> a owl:Ontology;
     rdfs:label "ANDSHarvest"@en;
@@ -234,6 +243,14 @@ ands:enriches a owl:ObjectProperty;
 	rdfs:domain foaf:Agent;
 	rdfs:range ands:ResearchData .
 
+for:FOR rdfs:subClassOf vivo:SubjectArea .
+
+rfcd:RFCD rdfs:subClassOf vivo:SubjectArea .
+
+seo08:SEO rdfs:subClassOf vivo:SubjectArea .
+
+seo98:SEO rdfs:subClassOf vivo:SubjectArea .
+
 ands:SubjectAreaKeyword a owl:Class;
     rdfs:label "Subject Area Keyword"@en;
     rdfs:comment "A class to define subject areas as simple keywords. The keyword itself is kept as rdfs:label on instances of this class"^^xsd:string;
@@ -269,11 +286,10 @@ ands:ands a owl:DatatypeProperty;
     rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:handle .
 
-ands:dateOfPublication a rdf:Property,
-        owl:DatatypeProperty;
+ands:dateOfPublication a owl:ObjectProperty;
     rdfs:label "date of publication (public release)"@en;
     rdfs:domain ands:ResearchData;
-    rdfs:range xsd:dateTime .
+	rdfs:range vivo:DateTimeValue .
 
 ands:groupDescription a owl:DatatypeProperty;
     rdfs:domain ands:ResearchData;
@@ -440,14 +456,18 @@ ands:isManagedBy a owl:ObjectProperty;
     rdfs:label "is managed by"@en;
 	rdfs:comment " is overseen by the related party"^^xsd:string;
 	rdfs:domain ands:RifcsThing;
-    rdfs:range foaf:Agent, ands:RifcsThing;
+    #rdfs:range foaf:Agent, ands:RifcsThing;
+	rdfs:range [ a owl:Class;
+    	owl:unionOf ( foaf:Agent ands:RifcsThing ) ];
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isManagerOf .
 
 ands:isManagerOf a owl:ObjectProperty;
     rdfs:label "is manager of"@en;
 	rdfs:comment "oversees the related party or administers the related collection"^^xsd:string;
-	rdfs:domain foaf:Agent, ands:RifcsThing;
+	#rdfs:domain foaf:Agent, ands:RifcsThing;
+	rdfs:domain [ a owl:Class;
+    	owl:unionOf ( foaf:Agent ands:RifcsThing ) ];
 	rdfs:range ands:RifcsThing;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isManagedBy .
@@ -474,7 +494,9 @@ ands:isOwnedBy a owl:ObjectProperty;
     rdfs:comment "legally belongs to the related party"^^xsd:string;
     #rdfs:domain ands:ResearchData;
 	rdfs:domain ands:RifcsThing;
-    rdfs:range foaf:Agent, foaf:Program;
+    #rdfs:range foaf:Agent, foaf:Program;
+	rdfs:range [ a owl:Class;
+    	owl:unionOf ( foaf:Agent foaf:Program ) ];
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isOwnerOf .
 
@@ -576,8 +598,15 @@ ands:OAIVITROHarvest a owl:Class;
     rdfs:label "OAIHarvest"@en .
 
 ands:ResearchData a owl:Class;
-    rdfs:label "Research Data"@en .
-    #rdfs:subClassOf bibo:Collection .
+    rdfs:label "Research Data"@en;
+	rdfs:subClassOf
+              [ a owl:Restriction ;
+                owl:allValuesFrom vivo:DateTimeInterval ;
+                owl:onProperty vivo:dateTimeInterval
+              ] ;
+	#rdfs:subClassOf ands:RifcsThing ;
+	rdfs:subClassOf vivo:InformationResource ;
+    rdfs:subClassOf bibo:Collection .
 
 dcterms:hasPart owl:inverseOf dcterms:isPartOf .
 
@@ -782,52 +811,52 @@ ands:urn a owl:DatatypeProperty;
 
 ands:dateAvailable a owl:ObjectProperty;
 	rdfs:label "available"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateCreated a owl:ObjectProperty;
 	rdfs:label "created"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:date a owl:ObjectProperty;
 	rdfs:label "date"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateAccepted a owl:ObjectProperty;
 	rdfs:label "date accepted"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateSubmitted a owl:ObjectProperty;
 	rdfs:label "date submitted"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:endPublicationDate a owl:ObjectProperty;
 	rdfs:label "end publication date"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateIssued a owl:ObjectProperty;
 	rdfs:label "issued"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateModified a owl:ObjectProperty;
 	rdfs:label "modified"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:startPublicationDate a owl:ObjectProperty;
 	rdfs:label "start publication date"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:dateValid a owl:ObjectProperty;
 	rdfs:label "valid"@en;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain ands:ResearchData;
 	rdfs:range vivo:DateTimeValue .
 
 ands:relatedInformationResource a owl:ObjectProperty;
