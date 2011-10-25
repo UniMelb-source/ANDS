@@ -84,31 +84,11 @@ ands:dcmiPoint a owl:DatatypeProperty;
     rdfs:range xsd:string;
     rdfs:domain ands:RifcsThing .
 
-ands:text a owl:DatatypeProperty;
+ands:textLocation a owl:DatatypeProperty;
     rdfs:label "text"@en;
 	rdfs:comment "Free-text representation of spatial location"^^xsd:string;
     rdfs:range xsd:string;
     rdfs:domain ands:RifcsThing .
-
-#dcterms:rights rdfs:domain ands:RifcsThing .
-
-#skos:Note rdfs:domain ands:RifcsThing .
-
-#dcterms:description rdfs:domain ands:RifcsThing .
-
-#vivo:description rdfs:domain ands:RifcsThing .
-
-#dcterms:accessRights rdfs:domain ands:RifcsThing .
-
-#vivo:addressStreet rdfs:domain vivo:Address .
-
-#vivo:addressCity rdfs:domain vivo:Address .
-
-#vivo:addressDepartment rdfs:domain vivo:Address .
-
-#vivo:addressPostalCode rdfs:domain vivo:Address .
-
-#vivo:addressState rdfs:domain vivo:Address .
 
 ands:hasMember a owl:ObjectProperty;
 	rdfs:comment "(group only) has enrolled the related party in the group"^^xsd:string;
@@ -131,17 +111,17 @@ ands:local a owl:DatatypeProperty;
 ands:deliveryMethod a owl:DatatypeProperty;
 	rdfs:comment "(Services only) Information about how the service is delivered."^^xsd:string;
     rdfs:label "delivery method"@en;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain ands:Service .
 
 ands:significanceStatement a owl:DatatypeProperty;
 	rdfs:comment "(Collections only) A statement describing the significance of a collection within its domain or context."^^xsd:string;
     rdfs:label "significance statement"@en;
-    rdfs:domain ands:RifcsThing .
+    rdfs:domain ands:ResearchData .
 
 ands:Activity a owl:Class;
 	rdfs:comment "ANDS activity"^^xsd:string;
     rdfs:label "activity"@en;
-    rdfs:subClassOf ands:RifcsThing .
+	rdfs:subClassOf [ a rdfs:Class; owl:unionOf ( vivo:Agreement vivo:Program vivo:Project ) ] .
 
 ands:Service a owl:Class;
 	rdfs:comment "ANDS service"^^xsd:string;
@@ -231,10 +211,6 @@ vivo:Program rdfs:subClassOf ands:RifcsThing .
 
 vivo:Project rdfs:subClassOf ands:RifcsThing .
 
-#foaf:Organization rdfs:subClassOf ands:RifcsThing .
-
-#foaf:Person rdfs:subClassOf ands:RifcsThing .
-
 foaf:Agent rdfs:subClassOf ands:RifcsThing .
 
 ands:enriches a owl:ObjectProperty;
@@ -264,20 +240,20 @@ ands:handle a owl:DatatypeProperty;
 ands:abn a owl:DatatypeProperty;
     rdfs:label "Australian Business Number"@en;
     rdfs:comment "Australian Business Number"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain foaf:Agent;
     rdfs:subPropertyOf vivo:identifier .
 
 ands:arc a owl:DatatypeProperty;
     rdfs:label "Archival Research Catalog identifier"@en;
     dc:date "ARC Id"^^xsd:string;
     rdfs:comment "Archival Research Catalog identifier"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain [ a rdfs:Class; owl:unionOf ( vivo:Agreement vivo:Project ) ];
     rdfs:subPropertyOf bibo:identifier .
 
 ands:ark a owl:DatatypeProperty;
     rdfs:label "ARK identifier"@en;
     rdfs:comment "ARK persistent identifier"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domainands:ResearchData;
     rdfs:subPropertyOf vivo:identifier .
 
 ands:ands a owl:DatatypeProperty;
@@ -285,6 +261,7 @@ ands:ands a owl:DatatypeProperty;
     rdfs:comment "ANDS handle"^^xsd:string;
     rdfs:domain owl:Thing;
     rdfs:subPropertyOf bibo:handle .
+Change domain to RifcsThing
 
 ands:dateOfPublication a owl:ObjectProperty;
     rdfs:label "date of publication (public release)"@en;
@@ -310,13 +287,13 @@ ands:isil a owl:DatatypeProperty;
 ands:nla a owl:DatatypeProperty;
     rdfs:label "National Library Australia identifier"@en;
     rdfs:comment "National Library Australia identifier"^^xsd:string;
-	rdfs:domain ands:RifcsThing;
+	rdfs:domain foaf:Agent;
     rdfs:subPropertyOf vivo:identifier .
 
 ands:originatingSource a owl:DatatypeProperty;
     rdfs:label "originating source"@en;
     rdfs:comment "Used in RIF-CS export. Normally supplied by ANDSHavest instance, but can be overriden by each harvested individual"^^xsd:string;
-    rdfs:domain owl:Thing;
+    rdfs:domain ands:RifcsThing;
     rdfs:range xsd:string .
 
 ands:purl a owl:DatatypeProperty;
@@ -419,6 +396,7 @@ ands:hasPointOfContact a rdf:Property,
     rdfs:comment "An agent who is point of contact for something"^^xsd:string;
     rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
+	rdfs:domain ands:ResearchData;
     owl:inverseOf ands:isPointOfContactFor .
 
 ands:isCollectorOf a owl:ObjectProperty;
@@ -456,18 +434,14 @@ ands:isManagedBy a owl:ObjectProperty;
     rdfs:label "is managed by"@en;
 	rdfs:comment " is overseen by the related party"^^xsd:string;
 	rdfs:domain ands:RifcsThing;
-    #rdfs:range foaf:Agent, ands:RifcsThing;
-	rdfs:range [ a owl:Class;
-    	owl:unionOf ( foaf:Agent ands:RifcsThing ) ];
+	rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isManagerOf .
 
 ands:isManagerOf a owl:ObjectProperty;
     rdfs:label "is manager of"@en;
 	rdfs:comment "oversees the related party or administers the related collection"^^xsd:string;
-	#rdfs:domain foaf:Agent, ands:RifcsThing;
-	rdfs:domain [ a owl:Class;
-    	owl:unionOf ( foaf:Agent ands:RifcsThing ) ];
+	rdfs:domain foaf:Agent;
 	rdfs:range ands:RifcsThing;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isManagedBy .
@@ -483,27 +457,22 @@ ands:isOutputOf a owl:ObjectProperty;
     rdfs:label "is output of"@en;
 	rdfs:comment "is a product of the related activity"^^xsd:string;
     rdfs:domain ands:ResearchData;
-    #rdfs:range [ a owl:Class;
-            #owl:unionOf ( vivo:Grant vivo:Program ) ];
-	rdfs:range vivo:Program, vivo:Project;
+    rdfs:range ands:Activity;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:hasOutput .
 
 ands:isOwnedBy a owl:ObjectProperty;
     rdfs:label "is owned by"@en;
     rdfs:comment "legally belongs to the related party"^^xsd:string;
-    #rdfs:domain ands:ResearchData;
-	rdfs:domain ands:RifcsThing;
-    #rdfs:range foaf:Agent, foaf:Program;
-	rdfs:range [ a owl:Class;
-    	owl:unionOf ( foaf:Agent foaf:Program ) ];
+    rdfs:domain ands:ResearchData
+	rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isOwnerOf .
 
 ands:isOwnerOf a owl:ObjectProperty;
     rdfs:label "is owner of"@en;
 	rdfs:domain foaf:Agent;
-	rdfs:range foaf:Organization;
+	rdfs:range ands:ResearchData;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isOwnedBy .
 
@@ -520,6 +489,7 @@ ands:isPointOfContactFor a rdf:Property,
     rdfs:label "is point of contact for"@en;
     rdfs:comment "This agent is point of contact for something."^^xsd:string;
     rdfs:domain foaf:Agent;
+	rdfs:range ands:RifcsThing;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:hasPointOfContact .
 
@@ -541,7 +511,8 @@ ands:hasResearchData a owl:ObjectProperty;
     rdfs:label "has research data"@en;
     rdfs:domain bibo:AcademicArticle;
     rdfs:range ands:ResearchData;
-    owl:inverseOf ands:publishedIn .
+
+########!!!!!!!!!!
     
 ands:associatedPrincipleInvestigator a owl:ObjectProperty;
     rdfs:label "associated principal investigator"@en;
@@ -603,19 +574,9 @@ ands:ResearchData a owl:Class;
               [ a owl:Restriction ;
                 owl:allValuesFrom vivo:DateTimeInterval ;
                 owl:onProperty vivo:dateTimeInterval
-              ] ;
-	#rdfs:subClassOf ands:RifcsThing ;
+              ] ;	
 	rdfs:subClassOf vivo:InformationResource ;
     rdfs:subClassOf bibo:Collection .
-
-dcterms:hasPart owl:inverseOf dcterms:isPartOf .
-
-dcterms:isPartOf owl:inverseOf dcterms:hasPart .
-
-bibo:Collection rdfs:subClassOf [ a owl:Restriction;
-            owl:allValuesFrom [ a owl:Class;
-                    owl:unionOf ( bibo:Collection bibo:Document ) ];
-            owl:onProperty dcterms:isPartOf ] .
 
 ands:isEnrichedBy a owl:ObjectProperty;
     rdfs:label "is enriched by"@en;
@@ -713,101 +674,95 @@ ands:hasValueAddedBy a owl:ObjectProperty;
 
 ands:citHarvard a owl:DatatypeProperty;
 	rdfs:label "Harvard"@en;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citAPA a owl:DatatypeProperty;
 	rdfs:label "APA"@en;
 	rdfs:comment "American Psychological Association"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citMLA a owl:DatatypeProperty;
 	rdfs:label "MLA"@en;
 	rdfs:comment "Modern Language Association of America"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citVancouver a owl:DatatypeProperty;
 	rdfs:label "Vancouver"@en;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citIEEE a owl:DatatypeProperty;
 	rdfs:label "IEEE"@en;
 	rdfs:comment "Institute of Electrical and Electronic Engineers"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citCSE a owl:DatatypeProperty;
 	rdfs:label "CSE"@en;
 	rdfs:comment "Council of Science Editors"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citChicago a owl:DatatypeProperty;
 	rdfs:label "Chicago"@en;
 	rdfs:comment "Chicago Manual of Style"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citAMA a owl:DatatypeProperty;
 	rdfs:label "AMA"@en;
 	rdfs:comment "American Medical Association"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citAgpsAGIMO a owl:DatatypeProperty;
 	rdfs:label "AGPS-AGIMO"@en;
 	rdfs:comment "Australian Style Manual"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citAGLC a owl:DatatypeProperty;
 	rdfs:label "AGLC"@en;
 	rdfs:comment "Australian Guide to Legal Citation"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citACS a owl:DatatypeProperty;
 	rdfs:label "ACS"@en;
 	rdfs:comment "American Chemical Society"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:citDatacite a owl:DatatypeProperty;
 	rdfs:label "Datacite"@en;
 	rdfs:comment "International Data Citation"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:doi a owl:DatatypeProperty;
 	rdfs:label "doi"@en;
 	rdfs:comment "Digital Object Identifier"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:ean13 a owl:DatatypeProperty;
 	rdfs:label "ean13"@en;
 	rdfs:comment "International Article Number"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:uri a owl:DatatypeProperty;
 	rdfs:label "eissn"@en;
 	rdfs:comment "electronic International Standard Serial Number"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:istc a owl:DatatypeProperty;
 	rdfs:label "istc"@en;
 	rdfs:comment " International Standard Text Code"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:lissn a owl:DatatypeProperty;
 	rdfs:label "lissn"@en;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:upc a owl:DatatypeProperty;
 	rdfs:label "upc"@en;
 	rdfs:comment "Universal Product Code"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:urn a owl:DatatypeProperty;
 	rdfs:label "urn"@en;
 	rdfs:comment "Uniform Resource Name"^^xsd:string;
-	rdfs:domain ands:RifcsThing .
-
-#bibo:eissn rdfs:domain ands:RifcsThing .
-
-#bibo:issn rdfs:domain ands:RifcsThing .
-
-#bibo:isbn rdfs:domain ands:RifcsThing .
+	rdfs:domain ands:ResearchData .
 
 ands:dateAvailable a owl:ObjectProperty;
 	rdfs:label "available"@en;
