@@ -253,15 +253,14 @@ ands:arc a owl:DatatypeProperty;
 ands:ark a owl:DatatypeProperty;
     rdfs:label "ARK identifier"@en;
     rdfs:comment "ARK persistent identifier"^^xsd:string;
-	rdfs:domainands:ResearchData;
+	rdfs:domain ands:ResearchData;
     rdfs:subPropertyOf vivo:identifier .
 
 ands:ands a owl:DatatypeProperty;
     rdfs:label "ANDS identifier"@en;
     rdfs:comment "ANDS handle"^^xsd:string;
-    rdfs:domain owl:Thing;
+    rdfs:domain ands:RifcsThing;
     rdfs:subPropertyOf bibo:handle .
-Change domain to RifcsThing
 
 ands:dateOfPublication a owl:ObjectProperty;
     rdfs:label "date of publication (public release)"@en;
@@ -464,7 +463,7 @@ ands:isOutputOf a owl:ObjectProperty;
 ands:isOwnedBy a owl:ObjectProperty;
     rdfs:label "is owned by"@en;
     rdfs:comment "legally belongs to the related party"^^xsd:string;
-    rdfs:domain ands:ResearchData
+    rdfs:domain ands:ResearchData;
 	rdfs:range foaf:Agent;
     rdfs:subPropertyOf dcterms:relation;
     owl:inverseOf ands:isOwnerOf .
@@ -510,7 +509,7 @@ ands:publishedIn a owl:ObjectProperty;
 ands:hasResearchData a owl:ObjectProperty;
     rdfs:label "has research data"@en;
     rdfs:domain bibo:AcademicArticle;
-    rdfs:range ands:ResearchData;
+    rdfs:range ands:ResearchData .
 
 ########!!!!!!!!!!
     
